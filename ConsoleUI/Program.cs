@@ -18,7 +18,7 @@ namespace ConsoleUI
 
 
             //GetAllCategory();
-           // GetProductDetails();
+           GetProductDetails();
             //GetByUnitPrice();
             //GetAllProduct();
             //GetAllByCategoryId();
@@ -27,10 +27,19 @@ namespace ConsoleUI
         private static void GetProductDetails()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var item in productManager.GetProductDetails())
+            var result = productManager.GetProductDetails();
+            if (result.Success)
             {
-                Console.WriteLine(item.ProductName + " - " + item.CategoryName);
+                foreach (var item in result.Data)
+                {
+                    Console.WriteLine(item.ProductName + " - " + item.CategoryName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
         }
 
         private static void GetAllCategory()
@@ -45,27 +54,51 @@ namespace ConsoleUI
         private static void GetAllProduct()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var item in productManager.GetAll())
+            var result = productManager.GetAll();
+            if (result.Success)
             {
-                Console.WriteLine(item.ProductId + " - " + item.ProductName);
+                foreach (var item in result.Data)
+                {
+                    Console.WriteLine(item.ProductId + " - " + item.ProductName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
         }
 
         private static void GetAllByCategoryId()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var item in productManager.GetAllByCategoryId(2))
-            {
-                Console.WriteLine(item.ProductId + " - " + item.ProductName + " - " + item.CategoryId);
-            }
+            var result = productManager.GetAllByCategoryId(2);
+            foreach (var item in result.Data)
+                if (result.Success)
+                {
+                    Console.WriteLine(item.ProductId + " - " + item.ProductName + " - " + item.CategoryId);
+                }
+                else
+                {
+                    Console.WriteLine(result.Message);
+                }
         }
 
         private static void GetByUnitPrice()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var item in productManager.GetByUnitPrice(10, 20))
+            var result = productManager.GetByUnitPrice(10, 20);
+            foreach (var item in result.Data)
             {
-                Console.WriteLine(item.ProductId + " - " + item.ProductName + " - " + item.UnitPrice);
+                if (result.Success)
+                {
+                    Console.WriteLine(item.ProductId + " - " + item.ProductName + " - " + item.UnitPrice);
+
+                }
+                else
+                {
+                    Console.WriteLine(result.Message);
+                }
             }
         }
     }
