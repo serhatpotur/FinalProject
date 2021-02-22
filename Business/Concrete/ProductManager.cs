@@ -36,7 +36,7 @@ namespace Business.Concrete
         {
             // iş kodları yazılır
             // if else kodları bu katmana yazılır. rol admin mi, ürün bilgileri doğru mu diye vs vs
-            if (DateTime.Now.Hour == 22)
+            if (DateTime.Now.Hour == 23)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime); // bakım zamanı
             }

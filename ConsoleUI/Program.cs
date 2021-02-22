@@ -18,9 +18,9 @@ namespace ConsoleUI
 
 
             //GetAllCategory();
-           GetProductDetails();
+           //GetProductDetails();
             //GetByUnitPrice();
-            //GetAllProduct();
+            GetAllProduct();
             //GetAllByCategoryId();
         }
 
