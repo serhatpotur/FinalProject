@@ -26,7 +26,7 @@ namespace ConsoleUI
 
         private static void GetProductDetails()
         {
-            ProductManager productManager = new ProductManager(new EfProductDal());
+            ProductManager productManager = new ProductManager(new EfProductDal(), new CategoryManager(new EfCategoryDal()));
             var result = productManager.GetProductDetails();
             if (result.Success)
             {
@@ -45,7 +45,7 @@ namespace ConsoleUI
         private static void GetAllCategory()
         {
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
-            foreach (var item in categoryManager.GetAll())
+            foreach (var item in categoryManager.GetAll().Data)
             {
                 Console.WriteLine(item.CategoryId + " - " + item.CategoryName);
             }
@@ -53,7 +53,7 @@ namespace ConsoleUI
 
         private static void GetAllProduct()
         {
-            ProductManager productManager = new ProductManager(new EfProductDal());
+            ProductManager productManager = new ProductManager(new EfProductDal(), new CategoryManager(new EfCategoryDal()));
             var result = productManager.GetAll();
             if (result.Success)
             {
@@ -71,7 +71,7 @@ namespace ConsoleUI
 
         private static void GetAllByCategoryId()
         {
-            ProductManager productManager = new ProductManager(new EfProductDal());
+            ProductManager productManager = new ProductManager(new EfProductDal(), new CategoryManager(new EfCategoryDal()));
             var result = productManager.GetAllByCategoryId(2);
             foreach (var item in result.Data)
                 if (result.Success)
@@ -86,7 +86,7 @@ namespace ConsoleUI
 
         private static void GetByUnitPrice()
         {
-            ProductManager productManager = new ProductManager(new EfProductDal());
+            ProductManager productManager = new ProductManager(new EfProductDal(),new CategoryManager(new EfCategoryDal()));
             var result = productManager.GetByUnitPrice(10, 20);
             foreach (var item in result.Data)
             {
